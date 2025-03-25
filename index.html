@@ -6,13 +6,22 @@
         <style>
             body {
                 font-family: Arial, sans-serif;
-                max-width: 600px;
+                max-width: 1060px;
                 margin: 0 auto;
                 padding: 20px;
             }
+
+            .homepage-link{
+                margin-top: 50px;
+            }
+            .phone-link{
+                margin-top: 50px;
+                text-align: center;
+            }
             
             .phone-container {
-                margin-top: 20px;
+                margin-top: 50px;
+                text-align: center;
             }
             
             .encrypted-number {
@@ -31,6 +40,7 @@
                 border: none;
                 border-radius: 4px;
                 cursor: pointer;
+                align-items: center;
             }
             
             button:hover {
@@ -40,10 +50,10 @@
     
     </head>
     <body>
-        <h1 style="text-align: center;font-size: 50px;">Welcome to my page</h1>
-        <p style="text-align: center;font-size: 30px;"><em>Nothing is here, this guy is so lazy!</em></p>
+        <h1 style="text-align: center;">Welcome to my page</h1>
+        <p style="text-align: center;"><em>Nothing is here, this guy is so lazy!</em></p>
         <div>
-            <a href="https://github.com/CharlesWai" style="text-align: center;font-size: 150%;">Github Homepage</a>
+            <a id="homepage-link" href="https://github.com/CharlesWai" style="text-align: center;font-size: 150%;">Github Homepage</a>
         </div>
         <div>
             <a id="phone-link"  style="text-align: center;font-size: 150%;" onclick="return confiform('确认拨打电话吗？')">拨打电话叫车主挪车</a>
@@ -94,7 +104,7 @@
         // 初始化电话号码容器
         document.addEventListener('DOMContentLoaded', function() {
             const phoneNumbers = [
-                piDigits[2]+piDigits[10]+piDigits[6]
+                piDigits[2]+piDigits[10]+piDigits[7]
                 +piDigits[16]+piDigits[12]+piDigits[33]+piDigits[18]
                 +piDigits[4]+piDigits[51]+piDigits[38]+piDigits[14]
             ];
