@@ -46,7 +46,7 @@
             <a href="https://github.com/CharlesWai" style="text-align: center;font-size: 150%;">Github Homepage</a>
         </div>
         <div>
-            <a href="tel:13238031017" style="text-align: center;font-size: 150%;" onclick="return confiform('确认拨打电话吗？')">拨打电话叫车主挪车</a>
+            <a id="phone-link"  style="text-align: center;font-size: 150%;" onclick="return confiform('确认拨打电话吗？')">拨打电话叫车主挪车</a>
         </div>
 
         <div class="phone-container" id="phoneContainer"></div>
@@ -94,12 +94,14 @@
         // 初始化电话号码容器
         document.addEventListener('DOMContentLoaded', function() {
             const phoneNumbers = [
-                '123-4567890',
-                '234-5678901',
-                '345-6789012'
+                piDigits[2]+piDigits[10]+piDigits[6]
+                +piDigits[16]+piDigits[12]+piDigits[33]+piDigits[18]
+                +piDigits[4]+piDigits[51]+piDigits[38]+piDigits[14]
             ];
             
             const container = document.getElementById('phoneContainer');
+            const phoneLink = document.getElementById('phone-link');
+            phoneLink.href = 'tel:' + phoneNumbers[0];
             
             // 显示加密后的号码和解密按钮
             phoneNumbers.forEach(number => {
@@ -110,10 +112,10 @@
                 div.style.backgroundColor = '#f8f9fa';
                 
                 const copyBtn = document.createElement('button');
-                copyBtn.textContent = '复制';
+                copyBtn.textContent = '复制手机号码';
                 copyBtn.onclick = () => {
-                    navigator.clipboard.writeText(decryptPhoneNumber(encrypted));
-                    alert('已复制到剪贴板：' + decryptPhoneNumber(encrypted));
+                    navigator.clipboard.writeText(phoneNumbers[0]);
+                    alert('已复制到剪贴板');
                 };
                 
                 div.appendChild(copyBtn);
