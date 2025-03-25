@@ -3,20 +3,123 @@
     <head>
         <meta charset="utf-8">
         <title>Charles Wai's Home Page</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            
+            .phone-container {
+                margin-top: 20px;
+            }
+            
+            .encrypted-number {
+                display: inline-block;
+                background-color: #f0f0f0;
+                padding: 8px 15px;
+                border-radius: 4px;
+                margin-right: 10px;
+                cursor: pointer;
+            }
+            
+            button {
+                padding: 8px 15px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            
+            button:hover {
+                background-color: #45a049;
+            }
+        </style>
+    
     </head>
     <body>
-        <h1 style="text-align: center;">Welcome to my page</h1>
-        <p style="text-align: center;"><em>Nothing is here, this guy is so lazy!</em></p>
+        <h1 style="text-align: center;font-size: 50px;">Welcome to my page</h1>
+        <p style="text-align: center;font-size: 30px;"><em>Nothing is here, this guy is so lazy!</em></p>
         <div>
-            <a href="tel:13238031017" onclick="return confiform('确认拨打电话吗？')">拨打电话叫车主挪车</a>
+            <a href="https://github.com/CharlesWai" style="text-align: center;font-size: 150%;">Github Homepage</a>
         </div>
         <div>
-            
+            <a href="tel:13238031017" style="text-align: center;font-size: 150%;" onclick="return confiform('确认拨打电话吗？')">拨打电话叫车主挪车</a>
         </div>
+
+        <div class="phone-container" id="phoneContainer"></div>
     </body>
     <script>
-        function dialNumber(number){
-
+        // 假设的圆周率索引映射
+        const piDigits = "3.14159265358979323846264338327950288419716939937510";
+        
+        // 创建映射关系
+        const mapping = {};
+        let index = 0;
+        for (let i = 0; i < piDigits.length; i++) {
+            if (i === 1) continue; // 跳过小数点
+            const digit = piDigits[i];
+            if (!mapping[digit]) {
+                mapping[digit] = String.fromCharCode(65 + index);
+                index++;
+            }
         }
+        
+        // 加密电话号码
+        function encryptPhoneNumber(number) {
+            let encrypted = "";
+            for (const char of number) {
+                if (char === '-') continue; // 跳过分隔符
+                encrypted += mapping[char] || '?'; // 如果没有映射，使用占位符
+            }
+            return encrypted;
+        }
+        
+        // 解密电话号码（仅用于前端显示）
+        function decryptPhoneNumber(encryptedStr) {
+            let decrypted = "";
+            for (const char of encryptedStr) {
+                const code = char.charCodeAt(0) - 65;
+                if (code >= 0 && code < piDigits.length) {
+                    decrypted += piDigits[code];
+                } else {
+                    decrypted += '?';
+                }
+            }
+            return decrypted.replace(/,/g, '-'); // 还原分隔符
+        }
+
+        // 初始化电话号码容器
+        document.addEventListener('DOMContentLoaded', function() {
+            const phoneNumbers = [
+                '123-4567890',
+                '234-5678901',
+                '345-6789012'
+            ];
+            
+            const container = document.getElementById('phoneContainer');
+            
+            // 显示加密后的号码和解密按钮
+            phoneNumbers.forEach(number => {
+                const encrypted = encryptPhoneNumber(number);
+                const div = document.createElement('div');
+                div.className = 'encrypted-number';
+                div.textContent = encrypted;
+                div.style.backgroundColor = '#f8f9fa';
+                
+                const copyBtn = document.createElement('button');
+                copyBtn.textContent = '复制';
+                copyBtn.onclick = () => {
+                    navigator.clipboard.writeText(decryptPhoneNumber(encrypted));
+                    alert('已复制到剪贴板：' + decryptPhoneNumber(encrypted));
+                };
+                
+                div.appendChild(copyBtn);
+                container.appendChild(div);
+            });
+        });
+
     </script>
 </html>
